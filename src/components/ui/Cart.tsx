@@ -1,4 +1,4 @@
-import { CartStyled } from "./styles/Cart.styled";
+import { CartStyled } from "../styles/Cart.styled";
 import { Badge } from "./Badge";
 import { Button } from "./Button";
 

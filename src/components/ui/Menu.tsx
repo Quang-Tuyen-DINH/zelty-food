@@ -1,5 +1,5 @@
 import { Badge } from "./Badge";
-import { MenuStyled } from "./styles/Menu.syled";
+import { MenuStyled } from "../styles/Menu.syled";
 
 export const Menu = () => {
   return (

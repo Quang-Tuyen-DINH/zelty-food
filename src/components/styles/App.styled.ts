@@ -19,9 +19,6 @@ export const AppStyled = styled.div`
       &__left {
         grid-column: 1 / 3;
         grid-row: 1;
-        display: flex;
-        gap: 20px;
-        flex-direction: column;
       }
       &__right {
         grid-column: 3 / 4;
