@@ -4,7 +4,7 @@ import { MenuStyled } from "../styles/Menu.syled";
 import { Menu } from "../../shared/models/Menu.model";
 
 export const MenuList = (props: {menu: Menu[], selectMenu: any}) => {
-  const[selectedMenu, setSelectedMenu] = useState("M01");
+  const[selectedMenu, setSelectedMenu] = useState<string>("M01");
 
   const selectMenu = (event: any) => {
     props.selectMenu(event.target.id);

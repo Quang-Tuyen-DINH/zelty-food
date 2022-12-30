@@ -15,6 +15,8 @@ export const Catalogue = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [menu, setMenu] = useState<Menu[]>([]);
   const [selectedMenu, setSelectedMenu] = useState<string>("M01")
+  const [searching, setSearching] = useState<boolean>(false);
+  const [keyword, setKeyword] = useState<string>("")
 
   useEffect(() => {
     getMenu();
@@ -23,7 +25,7 @@ export const Catalogue = () => {
       setProducts(Store.getState().products);
       setMenu(Store.getState().menu);
     });
-  }, [selectedMenu])
+  }, [])
 
   const getMenu = async () => {
     await CatalogueService.getMenu()
@@ -37,6 +39,8 @@ export const Catalogue = () => {
 
   const selectMenu = (menuId: string) => {
     setSelectedMenu(menuId);
+    setKeyword("");
+    setSearching(false);
   }
 
   const getAllProducts = async () => {
@@ -50,13 +54,25 @@ export const Catalogue = () => {
       .catch(error => {console.log(error)})
   }
 
+  const searchProduct = (event: any) => {
+    if(event.target.value.length > 0) {
+      setSearching(true);
+      setKeyword(event.target.value);
+    } else {
+      setSearching(false);
+    }
+  }
+
   return (
     <CatalogueStyled className="zelty-restaurant__catalogue">
       <div className="zelty-restaurant__catalogue__left">
-        <SearchInput />
+        <SearchInput searchProduct={searchProduct}/>
         <MenuList menu={menu} selectMenu={selectMenu}/>
         <div className="zelty-restaurant__catalogue__left__products">
-          {products.filter((product: Product) => product.menuId === selectedMenu).map((product: Product) => (
+          {searching === false && products.filter((product: Product) => product.menuId === selectedMenu).map((product: Product) => (
+            <ProductCard key={product.id} product={product} />
+          ))}
+          {searching === true && products.filter((product: Product) => product.name.toLowerCase().includes(keyword.toLowerCase())).map((product: Product) => (
             <ProductCard key={product.id} product={product} />
           ))}
         </div>
