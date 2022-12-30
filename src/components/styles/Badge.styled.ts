@@ -3,6 +3,7 @@ import styled, { css } from "styled-components";
 export const BadgeStyled = styled.button<{
   $dark?: boolean;
   $active?: boolean;
+  $warning?: boolean;
 }>`
   all: unset;
   border-radius: 12px;
@@ -18,5 +19,11 @@ export const BadgeStyled = styled.button<{
     css`
       background: rgba(23, 204, 118, ${$dark ? "1" : "0.2"});
       color: ${$dark ? "white" : "var(--primary)"};
+    `}
+
+  ${({$warning}) => 
+    $warning &&
+    css`
+      color: var(--warning);
     `}
 `;

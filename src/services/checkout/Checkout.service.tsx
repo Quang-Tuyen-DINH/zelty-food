@@ -1,9 +1,10 @@
-import React from 'react'
+import React from 'react';
+import { CheckoutData } from '../../shared/models/CheckoutData.model'
 
-function CheckoutService() {
-  return (
-    <div>Checkout.service</div>
-  )
+const CheckoutService = {
+  validateCheckout(checkoutData: CheckoutData) {
+    console.log(checkoutData);
+  }
 }
 
 export default CheckoutService
