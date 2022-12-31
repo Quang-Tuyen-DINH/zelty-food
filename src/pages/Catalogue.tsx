@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { MenuList } from "../components/ui/Menu";
 import { SearchInput } from "../components/forms/SearchInput";
 import { CatalogueStyled } from "../components/styles/Catalogue.styled";
-import { Cart } from "../components/ui/Cart";
+import Cart from "../components/ui/Cart";
 import CatalogueService from "../services/catalogue/Catalogue.service";
 import { useDispatch } from "react-redux";
 import Store from "../store/Index";

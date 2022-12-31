@@ -7,9 +7,6 @@ function App() {
 
   return (
     <AppStyled className="zelty-restaurant">
-      <header>
-        <img className="zelty-restaurant__logo" src={logo} alt="logo" />
-      </header>
       <AppRoutes />
     </AppStyled>
   );

@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { CartProduct } from "../../shared/models/CartProduct.model";
 import { Item } from "../../shared/models/Option.model";
@@ -8,17 +9,22 @@ import { CartStyled } from "../styles/Cart.styled";
 import { Badge } from "./Badge";
 import { Button } from "./Button";
 
-export const Cart = () => {
+const Cart = () => {
   const dispatch = useDispatch();
   const [products, setProducts] = useState<Product[]>([]);
   const [options, setOptions] = useState<Item[]>([]);
   const [cartProducts, setCartProducts] = useState<CartProduct[]>([]);
+  const navigate = useNavigate();
+
+  const navigateCheckout = () => {
+    navigate("/checkout");
+  }
 
   useEffect(() => {
     Store.subscribe(() => {
       setProducts(Store.getState().products);
       setOptions(Store.getState().options);
-      setCartProducts(Store.getState().cartProducts);
+      setCartProducts(Store.getState().cartProducts.sort((a: CartProduct, b: CartProduct) => a.productId.localeCompare(b.productId)));
     });
   }, [cartProducts])
 
@@ -75,7 +81,7 @@ export const Cart = () => {
           <span className="price">{calculateTotal(cartProducts)} €</span>
         </div>
         {cartProducts.length > 0 ?
-          <Button>Commander</Button>
+          <Button onClick={navigateCheckout}>Commander</Button>
         :
           <Button disabled>Commander</Button>
         }
@@ -83,3 +89,5 @@ export const Cart = () => {
     </CartStyled>
   );
 };
+
+export default Cart;
