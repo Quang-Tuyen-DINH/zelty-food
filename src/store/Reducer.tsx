@@ -1,3 +1,4 @@
+import { CartProduct } from "../shared/models/CartProduct.model";
 import { Product } from "../shared/models/Product.model";
 import * as types from "./Constants";
 
@@ -29,6 +30,11 @@ const Reducer = (state = initialState, action: any) => {
       return {
         ...state,
         cartProducts: state.cartProducts.concat(action.payload)
+      };
+    case types.REMOVE_PRODUCT:
+      return {
+        ...state,
+        cartProducts: state.cartProducts.filter((product: CartProduct) => product.commandId !== action.payload)
       };
     default:
       return state;

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import uuid from 'react-uuid';
 import { ProductCardStyled } from '../styles/ProductCard.Styled';
 import { Product } from "../../shared/models/Product.model";
 import { Badge } from './Badge';
@@ -12,14 +13,12 @@ const ProductCard = (props: {product: Product, options?: Item[]}) => {
   const [selectedOption, setSelectedOption] = useState<string>("");
 
   const addToCartWithOptions = () => {
-    console.log("added ", props.product.id, " and ", selectedOption);
     setChooseOption(false);
-    dispatch({ type: "ADD_PRODUCT", payload: {productId: props.product.id, options: selectedOption} });
+    dispatch({ type: "ADD_PRODUCT", payload: {commandId: uuid(), productId: props.product.id, options: selectedOption, price: props.product.price} });
   }
 
   const addToCart = () => {
-    console.log("added ", props.product.id)
-    dispatch({ type: "ADD_PRODUCT", payload: {productId: props.product.id} });
+    dispatch({ type: "ADD_PRODUCT", payload: {commandId: uuid(), productId: props.product.id, price: props.product.price} });
   }
 
   return (
@@ -38,7 +37,7 @@ const ProductCard = (props: {product: Product, options?: Item[]}) => {
                 <Button onClick={() => setChooseOption(true)}>Choisir l'accompagnement</Button>
               )
             :
-              <Button onClick={addToCartWithOptions}>Choisir</Button>
+              <Button onClick={addToCartWithOptions}>Confirmer</Button>
             )
             :
             <Button onClick={addToCart}>Choisir</Button>
@@ -53,7 +52,7 @@ const ProductCard = (props: {product: Product, options?: Item[]}) => {
         :
           <div className="product-card__content__options">
             <div onClick={() => setChooseOption(false)} className="product-card__content__options__back">
-              <i className="product-card__content__options__back__arrow"></i><i className="product-card__content__options__back__arrow"></i><p>Retour</p>
+              <i className="product-card__content__options__back__arrow"></i><p>Retour</p>
             </div>
             {(props.product.available_options && props.options) &&
               props.product.available_options.map((option: string, index) => (
@@ -69,7 +68,7 @@ const ProductCard = (props: {product: Product, options?: Item[]}) => {
       <div className="product-card__footer">
         {props.product.sold_out ?
           <>
-            <span className="product-card__footer__price-sold-out">{props.product.price}€</span>
+            <span className="product-card__footer__price-sold-out">{props.product.price} €</span>
             <Badge warning>
               Sold out
             </Badge>

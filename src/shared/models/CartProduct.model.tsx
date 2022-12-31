@@ -1,4 +1,6 @@
 export interface CartProduct {
+  commandId: string,
   productId: string,
-  options?: string
+  options?: string,
+  price: number
 }
