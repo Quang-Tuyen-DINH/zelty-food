@@ -5,6 +5,6 @@ export interface Product {
   description: string,
   image: string,
   price: number,
-  available_options: string[],
+  available_options?: string[],
   sold_out: boolean
 }

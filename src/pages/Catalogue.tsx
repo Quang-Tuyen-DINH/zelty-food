@@ -8,11 +8,13 @@ import { useDispatch } from "react-redux";
 import Store from "../store/Index";
 import { Menu } from "../shared/models/Menu.model";
 import { Product } from "../shared/models/Product.model";
+import { Item } from "../shared/models/Option.model";
 import ProductCard from "../components/ui/ProductCard"
 
 export const Catalogue = () => {
   const dispatch = useDispatch();
   const [products, setProducts] = useState<Product[]>([]);
+  const [options, setOptions] = useState<Item[]>([]);
   const [menu, setMenu] = useState<Menu[]>([]);
   const [selectedMenu, setSelectedMenu] = useState<string>("M01")
   const [searching, setSearching] = useState<boolean>(false);
@@ -21,9 +23,11 @@ export const Catalogue = () => {
   useEffect(() => {
     getMenu();
     getAllProducts();
+    getAllOptions();
     Store.subscribe(() => {
-      setProducts(Store.getState().products);
       setMenu(Store.getState().menu);
+      setProducts(Store.getState().products);
+      setOptions(Store.getState().options);
     });
   }, [])
 
@@ -54,6 +58,23 @@ export const Catalogue = () => {
       .catch(error => {console.log(error)})
   }
 
+  const getAllOptions = async () => {
+    await CatalogueService.getAllOptions()
+      .then((data) => {
+        if(!data.data.Items) {
+          return;
+        }
+        const options = [].concat(
+          ...data.data.Items.map((group: any) => {
+              return group.items;
+            }
+          )
+        )
+        dispatch({ type: "LOAD_OPTIONS", payload: options });
+      })
+      .catch(error => {console.log(error)})
+  }
+
   const searchProduct = (event: any) => {
     if(event.target.value.length > 0) {
       setSearching(true);
@@ -70,15 +91,15 @@ export const Catalogue = () => {
         <MenuList menu={menu} selectMenu={selectMenu}/>
         <div className="zelty-restaurant__catalogue__left__products">
           {searching === false && products.filter((product: Product) => product.menuId === selectedMenu).map((product: Product) => (
-            <ProductCard key={product.id} product={product} />
+            product.available_options ? <ProductCard key={product.id} product={product} options={options}/> : <ProductCard key={product.id} product={product} />
           ))}
           {searching === true && products.filter((product: Product) => product.name.toLowerCase().includes(keyword.toLowerCase())).map((product: Product) => (
-            <ProductCard key={product.id} product={product} />
+            product.available_options ? <ProductCard key={product.id} product={product} options={options}/> : <ProductCard key={product.id} product={product} />
           ))}
         </div>
       </div>
       <div className="zelty-restaurant__catalogue__right">
-        <Cart />
+        <Cart products={products} options={options}/>
       </div>
     </CatalogueStyled>
   );

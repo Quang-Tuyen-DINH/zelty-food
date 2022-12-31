@@ -13,7 +13,7 @@ export const MenuList = (props: {menu: Menu[], selectMenu: any}) => {
 
   return (
     <MenuStyled className="zelty-restaurant__menu">
-      {props.menu.map((menu: Menu) => (
+      {props.menu.sort((a, b) => a.id.localeCompare(b.id)).map((menu: Menu) => (
         (selectedMenu === menu.id ? 
         <Badge active dark key={menu.id} id={menu.id} onClick={selectMenu}>{menu.name}</Badge>
         :

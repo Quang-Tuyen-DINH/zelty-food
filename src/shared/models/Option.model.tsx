@@ -4,7 +4,7 @@ export interface Option {
   items: Item[]
 }
 
-interface Item {
+export interface Item {
   id: string,
   name: string
 }

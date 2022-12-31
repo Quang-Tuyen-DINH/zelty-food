@@ -1,8 +1,11 @@
+import { Product } from "../shared/models/Product.model";
 import * as types from "./Constants";
 
 const initialState = {
+  menu: [],
   products: [],
-  menu: []
+  options: [],
+  cartProducts: [],
 };
 
 const Reducer = (state = initialState, action: any) => {
@@ -16,6 +19,16 @@ const Reducer = (state = initialState, action: any) => {
       return {
         ...state,
         products: action.payload
+      };
+    case types.LOAD_OPTIONS:
+      return {
+        ...state,
+        options: action.payload
+      };
+    case types.ADD_PRODUCT:
+      return {
+        ...state,
+        cartProducts: state.cartProducts.concat(action.payload)
       };
     default:
       return state;

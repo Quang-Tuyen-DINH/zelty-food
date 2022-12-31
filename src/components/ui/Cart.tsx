@@ -1,8 +1,27 @@
+import { useEffect, useState } from "react";
+import { CartProduct } from "../../shared/models/CartProduct.model";
+import { Item } from "../../shared/models/Option.model";
+import { Product } from "../../shared/models/Product.model";
+import Store from "../../store/Index";
 import { CartStyled } from "../styles/Cart.styled";
 import { Badge } from "./Badge";
 import { Button } from "./Button";
 
-export const Cart = () => {
+export const Cart = (props: {products: Product[], options: Item[]}) => {
+  const [products, setProducts] = useState<Product[]>(props.products);
+  const [options, setOptions] = useState<Item[]>(props.options);
+  const [cartProducts, setCartProducts] = useState<CartProduct[]>([]);
+
+  useEffect(() => {
+    Store.subscribe(() => {
+      setCartProducts(Store.getState().cartProducts);
+    });
+  }, [cartProducts])
+
+  const test = () => {
+    console.log(cartProducts)
+  }
+
   return (
     <CartStyled className="zelty-restaurant__cart">
       <div className="zelty-restaurant__cart__head">
@@ -15,9 +34,17 @@ export const Cart = () => {
         </div>
       </div>
       <div className="zelty-restaurant__cart__items">
+        <button onClick={test}>TEST</button>
+        {cartProducts.length === 0 ?
         <div className="zelty-restaurant__cart__items__empty">
           Aucun produit dans le panier 🥺
         </div>
+        :
+        <div className="zelty-restaurant__cart__items__item">
+          <span className="zelty-restaurant__cart__items__item__name"></span>
+          <span className="zelty-restaurant__cart__items__item__quantity"></span>
+        </div>
+        }
       </div>
       <div className="zelty-restaurant__cart__foot">
         <div className="zelty-restaurant__cart__foot__total">

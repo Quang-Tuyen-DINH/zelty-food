@@ -14,7 +14,7 @@ export const ButtonStyled = styled.button`
   transition: opacity 0.2s ease-in-out;
 
   &:hover {
-    opacity: 0.7;
+    background: var(--secondary);
   }
   &:disabled {
     background: #d8d8d8;
