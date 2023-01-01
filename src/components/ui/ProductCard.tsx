@@ -58,7 +58,7 @@ const ProductCard = (props: {product: Product, options?: Item[]}) => {
               props.product.available_options.map((option: string, index) => (
                 <label key={`option-${index}`} className="product-card__content__options__radio">
                   <input name="radio" type="radio" value={option} onClick={() => setSelectedOption(option)}/>
-                  <span>{props.options && props.options.find(item => item.id === option) ? props.options.find(item => item.id === option)?.name : <></>}</span>
+                  <span className="product-card__content__options__radio__label">{props.options && props.options.find(item => item.id === option) ? props.options.find(item => item.id === option)?.name : <></>}</span>
                 </label>
               ))
             }

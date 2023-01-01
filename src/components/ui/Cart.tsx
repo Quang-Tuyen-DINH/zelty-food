@@ -9,24 +9,19 @@ import { CartStyled } from "../styles/Cart.styled";
 import { Badge } from "./Badge";
 import { Button } from "./Button";
 
-const Cart = () => {
+const Cart = (props: {atCatalogue: boolean, atCheckout: boolean, checkoutConfirmed: boolean}) => {
   const dispatch = useDispatch();
   const [products, setProducts] = useState<Product[]>([]);
   const [options, setOptions] = useState<Item[]>([]);
   const [cartProducts, setCartProducts] = useState<CartProduct[]>([]);
+  const [atCatalogue, setAtCatalogue] = useState<boolean>(props.atCatalogue)
   const navigate = useNavigate();
 
-  const navigateCheckout = () => {
-    navigate("/checkout");
-  }
-
   useEffect(() => {
-    Store.subscribe(() => {
-      setProducts(Store.getState().products);
-      setOptions(Store.getState().options);
-      setCartProducts(Store.getState().cartProducts.sort((a: CartProduct, b: CartProduct) => a.productId.localeCompare(b.productId)));
-    });
-  }, [cartProducts])
+    setProducts(Store.getState().products);
+    setOptions(Store.getState().options);
+    setCartProducts(Store.getState().cartProducts.sort((a: CartProduct, b: CartProduct) => a.productId.localeCompare(b.productId)));
+  }, [])
 
   const removeProduct = (commandId: string) => {
     dispatch({ type: "REMOVE_PRODUCT", payload: commandId});
@@ -36,6 +31,14 @@ const Cart = () => {
     return products.reduce((sum, i) => {
       return (sum + i.price)
     }, 0)
+  }
+
+  const navigateCheckout = () => {
+    navigate("/checkout");
+  }
+
+  const payCommand = () => {
+
   }
 
   return (
@@ -60,7 +63,7 @@ const Cart = () => {
               <div className="zelty-restaurant__cart__items__product__details">
                 <span className="zelty-restaurant__cart__items__product__details__name">
                   {products.find(item => item.id === product.productId) ? products.find(item => item.id === product.productId)?.name : <></>}
-                  <span onClick={() => removeProduct(product.commandId)}></span>
+                  <span className="zelty-restaurant__cart__items__product__details__name__remove" onClick={() => removeProduct(product.commandId)}></span>
                 </span>
                 {product.options &&
                   <span className="zelty-restaurant__cart__items__product__details__option">
@@ -69,7 +72,7 @@ const Cart = () => {
                 }
               </div>
               <span className="zelty-restaurant__cart__items__product__price">
-                {product.price}
+                {product.price} €
               </span>
             </div>
           ))
@@ -81,7 +84,15 @@ const Cart = () => {
           <span className="price">{calculateTotal(cartProducts)} €</span>
         </div>
         {cartProducts.length > 0 ?
-          <Button onClick={navigateCheckout}>Commander</Button>
+          (props.atCatalogue ?
+            <Button onClick={navigateCheckout}>Commander</Button>
+          :
+            (props.checkoutConfirmed === true ?
+              <Button onClick={payCommand}>Payer</Button>
+            :
+              <Button disabled>Payer</Button>
+            )
+          )
         :
           <Button disabled>Commander</Button>
         }

@@ -22,7 +22,7 @@ export const CatalogueStyled = styled.div`
         display: flex;
         flex-wrap: wrap;
         justify-content: left;
-        gap: 40px 80px;
+        gap: 40px 70px;
       }
     }
     &__right {

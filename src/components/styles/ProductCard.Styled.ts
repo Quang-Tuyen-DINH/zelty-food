@@ -41,6 +41,7 @@ export const ProductCardStyled = styled.div`
       &__options {
         display: flex;
         flex-wrap: wrap;
+        justify-content: space-between;
         &__back {
           cursor: pointer;
           display: flex;
@@ -72,23 +73,20 @@ export const ProductCardStyled = styled.div`
           width: 140px;
           input {
             position: absolute;
-            left: -9999px;
+            display: none;
             &:checked + span {
               background-color: mix(#fff, var(--primary), 84%);
               &:before {
-                box-shadow: inset 0 0 0 0.4375em var(--primary);
+                box-shadow: inset 0 0 0 0.5rem var(--primary);
               }
             }
           }
-          span {
+          &__label {
             display: flex;
             align-items: center;
             padding: 0.375em 0;
             border-radius: 99em;
             transition: 0.25s ease;
-            &:hover {
-              background-color: mix(#fff, var(--primary), 84%);
-            }
             &:before {
               display: flex;
               flex-shrink: 0;

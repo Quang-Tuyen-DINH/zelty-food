@@ -40,29 +40,29 @@ export const CartStyled = styled.div`
           &__name {
             font-weight: 500;
             display: block;
-            span{
+            &__remove{
               cursor: pointer;
               position: relative;
               width: 32px;
               height: 32px;
               opacity: 0.3;
             }
-            span:hover {
+            &__remove:hover {
               opacity: 1;
             }
-            span:before, span:after {
+            &__remove:before, &__remove:after {
               position: absolute;
               top: 3px;
               left: 15px;
               content: ' ';
               height: 16px;
               width: 2px;
-              background-color: #333;
+              background-color: var(--warning);
             }
-            span:before {
+            &__remove:before {
               transform: rotate(45deg);
             }
-            span:after {
+            &__remove:after {
               transform: rotate(-45deg);
             }
           }
@@ -70,8 +70,6 @@ export const CartStyled = styled.div`
             display: block;
             margin: 0 0 0 1.2rem;
           }
-        }
-        &__price {
         }
       }
     }

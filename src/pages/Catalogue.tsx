@@ -99,7 +99,7 @@ export const Catalogue = () => {
         </div>
       </div>
       <div className="zelty-restaurant__catalogue__right">
-        <Cart />
+        <Cart atCatalogue={true} atCheckout={false}  checkoutConfirmed={false}/>
       </div>
     </CatalogueStyled>
   );

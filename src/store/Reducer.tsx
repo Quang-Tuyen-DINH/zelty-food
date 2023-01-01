@@ -7,6 +7,7 @@ const initialState = {
   products: [],
   options: [],
   cartProducts: [],
+  client: {}
 };
 
 const Reducer = (state = initialState, action: any) => {
