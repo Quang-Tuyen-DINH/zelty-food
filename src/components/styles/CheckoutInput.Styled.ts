@@ -28,9 +28,17 @@ export const CheckoutInputStyled = styled.div`
         }
       }
     }
-    &__form-button {
+    &__confirm-button {
       margin: 10px 0 0 0;
         width: 300px;
+    }
+    &__modify-button {
+      margin: 10px 0 0 0;
+      width: 300px;
+      background: #d8d8d8;
+      &:hover {
+        background: #6e6e6e81;
       }
+    }
   }
 `;

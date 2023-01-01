@@ -7,7 +7,12 @@ const initialState = {
   products: [],
   options: [],
   cartProducts: [],
-  client: {}
+  client: {
+    firstName: "",
+    lastName: "",
+    email: "",
+    phone: 1234567890
+  }
 };
 
 const Reducer = (state = initialState, action: any) => {
@@ -37,6 +42,11 @@ const Reducer = (state = initialState, action: any) => {
         ...state,
         cartProducts: state.cartProducts.filter((product: CartProduct) => product.commandId !== action.payload)
       };
+      case types.SAVE_CLIENT:
+        return {
+          ...state,
+          client: action.payload
+        };
     default:
       return state;
   }

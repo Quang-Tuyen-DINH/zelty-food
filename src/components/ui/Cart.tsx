@@ -21,6 +21,9 @@ const Cart = (props: {atCatalogue: boolean, atCheckout: boolean, checkoutConfirm
     setProducts(Store.getState().products);
     setOptions(Store.getState().options);
     setCartProducts(Store.getState().cartProducts.sort((a: CartProduct, b: CartProduct) => a.productId.localeCompare(b.productId)));
+    Store.subscribe(() => {
+      setCartProducts(Store.getState().cartProducts.sort((a: CartProduct, b: CartProduct) => a.productId.localeCompare(b.productId)));
+    })
   }, [])
 
   const removeProduct = (commandId: string) => {
@@ -38,7 +41,40 @@ const Cart = (props: {atCatalogue: boolean, atCheckout: boolean, checkoutConfirm
   }
 
   const payCommand = () => {
+    const clientInfors = Store.getState().client;
+    const counts: any = {};
+    cartProducts.forEach(cartProduct => {
+      let key = JSON.stringify(`${cartProduct.productId}${cartProduct.options ? "-" + cartProduct.options : ""}`)
+      counts[key] = (counts[key]  || 0) + 1;
+    })
 
+    let counter = Object.keys(counts).map(key => {
+      if(key.length === 11) {
+        return {
+          key: JSON.stringify(key).slice(3, 8),
+          options: [JSON.stringify(key).slice(9, 12)],
+          quantity: counts[key]
+        }
+      } else if(key.length === 7) {
+        return {
+          key: JSON.stringify(key).slice(3, 8),
+          options: [],
+          quantity: counts[key]
+        }
+      }
+    })
+
+    console.log({
+      customer: {
+        firstName: clientInfors.firstName,
+        name: clientInfors.lastName,
+        email: clientInfors.email,
+        phone: clientInfors.phone
+      },
+      orders: {
+        items: [...counter]
+      }
+    })
   }
 
   return (
