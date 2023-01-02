@@ -32,9 +32,10 @@ const Cart = (props: {atCatalogue: boolean, atCheckout: boolean, checkoutConfirm
   }
 
   const calculateTotal = (products: CartProduct[]) => {
-    return products.reduce((sum, i) => {
-      return (sum + i.price)
+    const total = products.reduce((sum, i) => {
+      return ((sum + i.price))
     }, 0)
+    return (total*0.01).toFixed(2);
   }
 
   const navigateCheckout = () => {
@@ -88,7 +89,7 @@ const Cart = (props: {atCatalogue: boolean, atCheckout: boolean, checkoutConfirm
                 }
               </div>
               <span className="zelty-restaurant__cart__items__product__price">
-                {product.price} €
+                {product.price/100} €
               </span>
             </div>
           ))
