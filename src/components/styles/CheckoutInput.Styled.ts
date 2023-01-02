@@ -4,6 +4,7 @@ export const CheckoutInputStyled = styled.div`
   .zelty-restaurant__checkout__form {
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
     &__input {
       margin: 0 110px 10px 0;
       width: 200px;
