@@ -6,7 +6,7 @@ export const CheckoutInputStyled = styled.div`
     flex-wrap: wrap;
     &__input {
       margin: 0 110px 10px 0;
-      width: 280px;
+      width: 200px;
       label {
         display: block;
         margin: 0 0 10px 0;
@@ -28,16 +28,16 @@ export const CheckoutInputStyled = styled.div`
         }
       }
     }
-    &__confirm-button {
-      margin: 10px 0 0 0;
+    &__confirm {
+      width: 100%;
+      display: contents;
+      &__button{
+        margin: 10px 0 0 0;
         width: 300px;
-    }
-    &__modify-button {
-      margin: 10px 0 0 0;
-      width: 300px;
-      background: #d8d8d8;
-      &:hover {
-        background: #6e6e6e81;
+        background: var(--primary);
+        &:hover {
+          background: var(--secondary);
+        }
       }
     }
   }
