@@ -68,13 +68,13 @@ const ProductCard = (props: {product: Product, options?: Item[]}) => {
       <div className="product-card__footer">
         {props.product.sold_out ?
           <>
-            <span className="product-card__footer__price-sold-out">{props.product.price} €</span>
+            <span className="product-card__footer__price-sold-out">{(props.product.price/100).toFixed(2)} €</span>
             <Badge warning>
               Sold out
             </Badge>
           </>
         :
-          <span className="product-card__footer__price">{props.product.price}€</span>
+          <span className="product-card__footer__price">{(props.product.price/100).toFixed(2)}€</span>
         }
       </div>
     </ProductCardStyled>

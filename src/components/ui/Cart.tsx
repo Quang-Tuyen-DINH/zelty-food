@@ -89,7 +89,7 @@ const Cart = (props: {atCatalogue: boolean, atCheckout: boolean, checkoutConfirm
                 }
               </div>
               <span className="zelty-restaurant__cart__items__product__price">
-                {product.price/100} €
+                {(product.price/100).toFixed(2)} €
               </span>
             </div>
           ))
