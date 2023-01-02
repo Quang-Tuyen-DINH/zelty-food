@@ -78,7 +78,9 @@ export const CheckoutInput = (props: {confirmInfors: any}) => {
             </div>
           ))}
           {(isDirty && isValid) &&
-            <Button type="submit" className="zelty-restaurant__checkout__form__confirm-button" onClick={() => props.confirmInfors(true)}>Confirmer Les Informations</Button>
+            <div className="zelty-restaurant__checkout__form__confirm">
+              <Button type="submit" className="zelty-restaurant__checkout__form__confirm__button" onClick={() => props.confirmInfors(true)}>Confirmer Les Informations</Button>
+            </div>
           }
         </form>
     </CheckoutInputStyled>
