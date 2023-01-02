@@ -42,6 +42,11 @@ const Reducer = (state = initialState, action: any) => {
         ...state,
         cartProducts: state.cartProducts.filter((product: CartProduct) => product.commandId !== action.payload)
       };
+      case types.REMOVE_ALL_PRODUCTS:
+        return {
+          ...state,
+          cartProducts: []
+        };
       case types.SAVE_CLIENT:
         return {
           ...state,

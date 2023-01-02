@@ -8,6 +8,7 @@ import Store from "../../store/Index";
 import { CartStyled } from "../styles/Cart.styled";
 import { Badge } from "./Badge";
 import { Button } from "./Button";
+import CheckoutService from "../../services/checkout/Checkout.service";
 
 const Cart = (props: {atCatalogue: boolean, atCheckout: boolean, checkoutConfirmed: boolean}) => {
   const dispatch = useDispatch();
@@ -40,41 +41,20 @@ const Cart = (props: {atCatalogue: boolean, atCheckout: boolean, checkoutConfirm
     navigate("/checkout");
   }
 
-  const payCommand = () => {
+  const payCommand = async () => {
     const clientInfors = Store.getState().client;
-    const counts: any = {};
-    cartProducts.forEach(cartProduct => {
-      let key = JSON.stringify(`${cartProduct.productId}${cartProduct.options ? "-" + cartProduct.options : ""}`)
-      counts[key] = (counts[key]  || 0) + 1;
+    await CheckoutService.payCommand(cartProducts, clientInfors)
+    .then((data) => {
+      console.log(data);
+      emptyCart();
     })
+    .catch((err) => {
+      console.log(err)
+    });
+  }
 
-    let counter = Object.keys(counts).map(key => {
-      if(key.length === 11) {
-        return {
-          key: JSON.stringify(key).slice(3, 8),
-          options: [JSON.stringify(key).slice(9, 12)],
-          quantity: counts[key]
-        }
-      } else if(key.length === 7) {
-        return {
-          key: JSON.stringify(key).slice(3, 8),
-          options: [],
-          quantity: counts[key]
-        }
-      }
-    })
-
-    console.log({
-      customer: {
-        firstName: clientInfors.firstName,
-        name: clientInfors.lastName,
-        email: clientInfors.email,
-        phone: clientInfors.phone
-      },
-      orders: {
-        items: [...counter]
-      }
-    })
+  const emptyCart = () => {
+    dispatch({ type: "REMOVE_ALL_PRODUCTS"});
   }
 
   return (
