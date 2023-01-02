@@ -44,7 +44,7 @@ To start the application
 $ npm run start
 ```
 
-## Zelty application's tructure
+## Zelty application's structure
 ```bash
 root/
 ├─ public/
@@ -71,7 +71,7 @@ root/
 ```
 
 ## How to use Zelty
-From Landing Page `http://localhost:300/`, client cans access to Catalogue page `http://localhost:3000/catalogue` by clicking the `Catalogue` button in navigation bar
+From Landing Page `http://localhost:3000/`, client cans access to Catalogue page `http://localhost:3000/catalogue` by clicking the `Catalogue` button in navigation bar
 
 ### Catalogue
 At the Catalogue page `http://localhost:3000/catalogue`, client will find a categorized list of products in 3 menus: Sides, Plats and Desserts. Each product card shows the food's image, name, description, price, availability and a "Select" button. In case the food has sauce, client can choose the prefered sauce by clicking the "Choose Sauce" on the card then select the sauce and confirm.
