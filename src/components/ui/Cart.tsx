@@ -9,6 +9,7 @@ import { CartStyled } from "../styles/Cart.styled";
 import { Badge } from "./Badge";
 import { Button } from "./Button";
 import CheckoutService from "../../services/checkout/Checkout.service";
+import Notification from '../../features/Notification';
 
 const Cart = (props: {atCatalogue: boolean, atCheckout: boolean, checkoutConfirmed: boolean}) => {
   const dispatch = useDispatch();
@@ -29,6 +30,7 @@ const Cart = (props: {atCatalogue: boolean, atCheckout: boolean, checkoutConfirm
 
   const removeProduct = (commandId: string) => {
     dispatch({ type: "REMOVE_PRODUCT", payload: commandId});
+    Notification.notifyProduct("removeProduct", "");
   }
 
   const calculateTotal = (products: CartProduct[]) => {
@@ -47,6 +49,7 @@ const Cart = (props: {atCatalogue: boolean, atCheckout: boolean, checkoutConfirm
     await CheckoutService.payCommand(cartProducts, clientInfors)
     .then((data) => {
       console.log(data);
+      Notification.notifyPayment();
       emptyCart();
     })
     .catch((err) => {

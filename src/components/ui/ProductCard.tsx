@@ -6,6 +6,7 @@ import { Badge } from './Badge';
 import { useDispatch } from 'react-redux';
 import { Button } from './Button';
 import { Item } from '../../shared/models/Option.model';
+import Notification from '../../features/Notification';
 
 const ProductCard = (props: {product: Product, options?: Item[]}) => {
   const dispatch = useDispatch();
@@ -15,10 +16,12 @@ const ProductCard = (props: {product: Product, options?: Item[]}) => {
   const addToCartWithOptions = () => {
     setChooseOption(false);
     dispatch({ type: "ADD_PRODUCT", payload: {commandId: uuid(), productId: props.product.id, options: selectedOption, price: props.product.price} });
+    Notification.notifyProduct("addProduct", props.product.name);
   }
 
   const addToCart = () => {
     dispatch({ type: "ADD_PRODUCT", payload: {commandId: uuid(), productId: props.product.id, price: props.product.price} });
+    Notification.notifyProduct("addProduct", props.product.name);
   }
 
   return (
@@ -58,7 +61,12 @@ const ProductCard = (props: {product: Product, options?: Item[]}) => {
               props.product.available_options.map((option: string, index) => (
                 <label key={`option-${index}`} className="product-card__content__options__radio">
                   <input name="radio" type="radio" value={option} onClick={() => setSelectedOption(option)}/>
-                  <span className="product-card__content__options__radio__label">{props.options && props.options.find(item => item.id === option) ? props.options.find(item => item.id === option)?.name : <></>}</span>
+                  <span className="product-card__content__options__radio__label">
+                    {props.options && props.options.find(item => item.id === option) ?
+                      props.options.find(item => item.id === option)?.name
+                    :
+                      <></>}
+                    </span>
                 </label>
               ))
             }

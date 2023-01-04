@@ -20,7 +20,9 @@ const NavBar = () => {
     <NavBarStyled>
       <ul className="zelty-restaurant__nav-bar">
         <li className="zelty-restaurant__nav-bar__logo">
-          <img src={logo} alt="logo" />
+          <Link to="landing">
+            <img src={logo} alt="logo" />
+          </Link>
         </li>
         {headersData.map(item => (
           <li key={item.id} className={activeTab === item.id ? "zelty-restaurant__nav-bar__element-active": "zelty-restaurant__nav-bar__element"} onClick={() => setActiveTab(item.id)} >
