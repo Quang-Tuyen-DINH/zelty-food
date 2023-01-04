@@ -41,5 +41,21 @@ export const CheckoutInputStyled = styled.div`
         }
       }
     }
+    &__unconfirm {
+      width: 100%;
+      display: contents;
+      &__button{
+        margin: 10px 0 0 0;
+        width: 300px;
+        &:disabled {
+          background: #d8d8d8;
+          cursor: initial;
+        }
+      }
+    }
+  }
+  .zelty-restaurant__checkout__empty {
+    margin: auto;
+    text-align: center;
   }
 `;
