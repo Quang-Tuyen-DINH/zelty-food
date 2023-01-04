@@ -5,12 +5,19 @@ import { Link } from "react-router-dom";
 
 const headersData = [
   {
+    label: "Landing",
+    id: "landing",
+    link: ""
+  },
+  {
     label: "Catalogue",
-    id: "catalogue"
+    id: "catalogue",
+    link: "catalogue"
   },
   {
     label: "Checkout",
-    id: "checkout"
+    id: "checkout",
+    link: "catalogue"
   }]; 
 
 const NavBar = () => {
@@ -20,13 +27,13 @@ const NavBar = () => {
     <NavBarStyled>
       <ul className="zelty-restaurant__nav-bar">
         <li className="zelty-restaurant__nav-bar__logo">
-          <Link to="landing">
+          <Link to="">
             <img src={logo} alt="logo" />
           </Link>
         </li>
         {headersData.map(item => (
           <li key={item.id} className={activeTab === item.id ? "zelty-restaurant__nav-bar__element-active": "zelty-restaurant__nav-bar__element"} onClick={() => setActiveTab(item.id)} >
-            <Link to={item.id}>
+            <Link to={item.link}>
               {item.label}
             </Link>
           </li>
