@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import logo from "../../assets/logo.svg"
 import { NavBarStyled } from "../styles/NavBar.styled";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const headersData = [
   {
@@ -17,11 +17,20 @@ const headersData = [
   {
     label: "Checkout",
     id: "checkout",
-    link: "catalogue"
+    link: "checkout"
   }]; 
 
 const NavBar = () => {
-  const [activeTab, setActiveTab] = useState<string>("")
+  const [activeTab, setActiveTab] = useState<string>("");
+  const location = useLocation();
+
+  useEffect(() => {
+    setActiveTab(pathName);
+  })
+
+  const pathName = (): string => {
+    return location.pathname;
+  }
 
   return (
     <NavBarStyled>
@@ -32,7 +41,7 @@ const NavBar = () => {
           </Link>
         </li>
         {headersData.map(item => (
-          <li key={item.id} className={activeTab === item.id ? "zelty-restaurant__nav-bar__element-active": "zelty-restaurant__nav-bar__element"} onClick={() => setActiveTab(item.id)} >
+          <li key={item.id} className={activeTab === `/${item.link}` ? "zelty-restaurant__nav-bar__element-active": "zelty-restaurant__nav-bar__element"} onClick={() => setActiveTab(`/${item.link}`)} >
             <Link to={item.link}>
               {item.label}
             </Link>

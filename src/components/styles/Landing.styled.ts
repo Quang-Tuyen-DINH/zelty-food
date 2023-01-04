@@ -12,6 +12,7 @@ export const LandingStyled = styled.div`
       width: 100%;
       font-size: 2.5rem;
       font-weight: 700;
+      color: var(--dark);
       span {
         padding: 0 0 0 10px;
         color: var(--primary);
