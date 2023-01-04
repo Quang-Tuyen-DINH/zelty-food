@@ -10,7 +10,7 @@ const AppRoutes = () => {
     <BrowserRouter>
       <NavBar />
       <Routes>
-        <Route path="/landing" element={<Landing />} />
+        <Route path="/" element={<Landing />} />
         <Route path="/catalogue" element={<Catalogue />} />
         <Route path="/checkout" element={<Checkout />} />
       </Routes>
