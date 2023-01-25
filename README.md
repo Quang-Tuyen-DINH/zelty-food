@@ -10,7 +10,7 @@ Designed for multi-site catering, Zelty covers all your needs: checkout, Click&C
     * Clone Zelty
     * Install necessary modules
     * Run Zelty
-* Zelty application's tructure
+* Zelty application's structure
 * How to use Zelty
     * Catalogue
     * Checkout
@@ -79,4 +79,4 @@ At the Catalogue page `http://localhost:3000/catalogue`, client will find a cate
 On the right side, client can follow theirs selected food with the total price, also client can remove the selected product on second thought by clicking the "X" icon next to the selected food's name. Once everything is set, client can proceed order by clicking "Command" button
 
 ### Checkout
-At the Checkout page `http://localhost:3000/checkout`, client has to fill their first name, last name, email and phone number to be available to pay. Once all informations in the right formats were collected, client can click the "Pay" button the finish the order.
+At the Checkout page `http://localhost:3000/checkout`, client has to fill their first name, last name, email and phone number to be available to pay. Once all informations in the right formats have been collected, client can click the "Pay" button to finish the order.
