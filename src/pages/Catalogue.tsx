@@ -64,13 +64,8 @@ export const Catalogue = () => {
         if(!data.data.Items) {
           return;
         }
-        const options = [].concat(
-          ...data.data.Items.map((group: any) => {
-              return group.items;
-            }
-          )
-        )
-        dispatch({ type: "LOAD_OPTIONS", payload: options });
+
+        dispatch({ type: "LOAD_OPTIONS", payload: data.data.Items });
       })
       .catch(error => {console.log(error)})
   }

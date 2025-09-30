@@ -35,15 +35,15 @@ const ProductCard = (props: {product: Product, options?: Item[]}) => {
           (props.product.available_options ?
             (chooseOption === false ?
               (props.product.available_options[0][0] === "S" ?
-                <Button onClick={() => setChooseOption(true)}>Choisir la sauce</Button>
+                <Button onClick={() => setChooseOption(true)}>Choose the sauce</Button>
               :
                 <Button onClick={() => setChooseOption(true)}>Choisir l'accompagnement</Button>
               )
             :
-              <Button onClick={addToCartWithOptions}>Confirmer</Button>
+              <Button onClick={addToCartWithOptions}>Confirm</Button>
             )
             :
-            <Button onClick={addToCart}>Choisir</Button>
+            <Button onClick={addToCart}>Choose</Button>
           )
           }
         </div>
@@ -55,7 +55,7 @@ const ProductCard = (props: {product: Product, options?: Item[]}) => {
         :
           <div className="product-card__content__options">
             <div onClick={() => setChooseOption(false)} className="product-card__content__options__back">
-              <i className="product-card__content__options__back__arrow"></i><p>Retour</p>
+              <i className="product-card__content__options__back__arrow"></i><p>Return</p>
             </div>
             {(props.product.available_options && props.options) &&
               props.product.available_options.map((option: string, index) => (

@@ -12,9 +12,9 @@ const Landing = () => {
   }
   return (
     <LandingStyled className="zelty-restaurant__landing">
-      <div className="zelty-restaurant__landing__title">Bienvenue sur <span>Zelty</span></div>
+      <div className="zelty-restaurant__landing__title">Food app demo by<span>Quang Tuyen</span></div>
       <div className="zelty-restaurant__landing__commence">
-        <Button className="zelty-restaurant__landing__commence__button" onClick={navigateCheckout}>Commencer à commander</Button>
+        <Button className="zelty-restaurant__landing__commence__button" onClick={navigateCheckout}>Begin to command</Button>
       </div>
     </LandingStyled>
   )

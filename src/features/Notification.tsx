@@ -5,7 +5,7 @@ import { css } from 'styled-components';
 const Notification = {
   notifyProduct(type: string, label: string) {
     if(type === "addProduct") {
-      toast.success(`${label} ajouté au panier !`, {
+      toast.success(`${label} added to the cart !`, {
         position: "top-right",
         autoClose: 3000,
         hideProgressBar: false,
@@ -17,7 +17,7 @@ const Notification = {
       });
     };
     if(type === "removeProduct") {
-      toast.warn(`${label} supprimé du panier !`, {
+      toast.warn(`${label} removed from the cart !`, {
         position: "top-right",
         autoClose: 3000,
         hideProgressBar: false,
@@ -31,7 +31,7 @@ const Notification = {
   },
 
   notifyCheckoutInformations() {
-    toast.success(`Vos informations pour la commande enregistrées !`, {
+    toast.success(`Your information for the command has been registered !`, {
       position: "top-right",
       autoClose: 3000,
       hideProgressBar: false,
@@ -44,7 +44,7 @@ const Notification = {
   },
 
   notifyPayment() {
-    toast.success(`Votre commande a été validée !`, {
+    toast.success(`Your commande has been validated !`, {
       position: "top-right",
       autoClose: 3000,
       hideProgressBar: false,
