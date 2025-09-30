@@ -16,28 +16,28 @@ interface checkoutInputData {
 
 const checkoutFormData: checkoutInputData[] = [
   {
-    label: "Nom",
+    label: "Last name",
     type: "text",
     name: "lastName",
     pattern: "[a-zA-Z][a-zA-Z ]+",
-    placeHolder: "Nom sans caractères spéciaux"
+    placeHolder: "Last name without special characters"
   },
   {
-    label: "Prénom",
+    label: "First name",
     type: "text",
     name: "firstName",
     pattern: "[a-zA-Z][a-zA-Z ]+",
-    placeHolder: "Prénom sans caractères spéciaux"
+    placeHolder: "First name without special characters"
   },
   {
     label: "Email",
     type: "text",
     name: "email",
     pattern: "^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$",
-    placeHolder: "Ex: email@zelty.fr"
+    placeHolder: "Ex: email@abc.com"
   },
   {
-    label: "Téléphone",
+    label: "Telephone",
     type: "tel",
     name: "phone",
     pattern: "[0-9]{10}",
@@ -97,7 +97,7 @@ export const CheckoutInput = (props: {confirmInfors: any}) => {
         </form>
       :
         <div className="zelty-restaurant__checkout__empty">
-          Veuillez ajouter vos produits au panier !
+          Please add products to your cart !
         </div>
       }
     </CheckoutInputStyled>
