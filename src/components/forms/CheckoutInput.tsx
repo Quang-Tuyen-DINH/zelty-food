@@ -1,12 +1,19 @@
 import { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
+import { useForm, UseFormRegister, SubmitHandler } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { CheckoutInputStyled } from "../styles/CheckoutInput.Styled";
 import { Button } from "../ui/Button";
 import Notification from "../../features/Notification";
 import Store from "../../store/Index";
 
-interface checkoutInputData {
+interface CheckoutFormValues {
+  lastName: string;
+  firstName: string;
+  email: string;
+  phone: string;
+}
+
+interface CheckoutInputData {
   label: string,
   type: string,
   name: string,
@@ -14,7 +21,16 @@ interface checkoutInputData {
   placeHolder: string
 }
 
-const checkoutFormData: checkoutInputData[] = [
+interface CheckoutInputProps {
+  confirmInfors: (confirmed: boolean) => void;
+}
+
+interface InputComponentProps {
+  data: CheckoutInputData;
+  register: UseFormRegister<CheckoutFormValues>;
+}
+
+const checkoutFormData: CheckoutInputData[] = [
   {
     label: "Last name",
     type: "text",
@@ -45,33 +61,34 @@ const checkoutFormData: checkoutInputData[] = [
   }
 ]
 
-const InputComponent = (props: {data: checkoutInputData, register: any}) => {
+const InputComponent = ({ data, register }: InputComponentProps) => {
   return (
     <label>
-      {props.data.label}
+      {data.label}
       <input
-        type={props.data.type}
-        placeholder={props.data.placeHolder}
-        {...props.register(props.data.name, { required: true, pattern: new RegExp(props.data.pattern) })} />
+        type={data.type}
+        placeholder={data.placeHolder}
+        {...register(data.name as keyof CheckoutFormValues, { required: true, pattern: new RegExp(data.pattern) })}
+      />
     </label>
   )
 }
 
-export const CheckoutInput = (props: {confirmInfors: any}) => {
+export const CheckoutInput = ({ confirmInfors }: CheckoutInputProps) => {
   const dispatch = useDispatch();
   const [hasProducts, setHasProducts] = useState<boolean>();
-  const {register, handleSubmit, setFocus, formState, reset} = useForm();
-  const {isDirty, isValid} = formState;
+  const { register, handleSubmit, setFocus, formState, reset } = useForm<CheckoutFormValues>();
+  const { isDirty, isValid } = formState;
 
   useEffect(() => {
-    setFocus(checkoutFormData[0].name);
+    setFocus(checkoutFormData[0].name as keyof CheckoutFormValues);
     Store.getState().cartProducts.length > 0 ? setHasProducts(true): setHasProducts(false);
     Store.subscribe(() => {
       Store.getState().cartProducts.length > 0 ? setHasProducts(true): setHasProducts(false);
     })
   }, []);
 
-  const onSubmit = (data: any) => {
+  const onSubmit: SubmitHandler<CheckoutFormValues> = (data) => {
     dispatch({ type: "SAVE_CLIENT", payload: data });
     reset();
   }
@@ -80,18 +97,29 @@ export const CheckoutInput = (props: {confirmInfors: any}) => {
     <CheckoutInputStyled>
       {hasProducts === true ?
         <form className="zelty-restaurant__checkout__form" onSubmit={handleSubmit(onSubmit)}>
-          {checkoutFormData.map((data: checkoutInputData) => (
+          {checkoutFormData.map((data: CheckoutInputData) => (
             <div key={`input-${data.name}`} className="zelty-restaurant__checkout__form__input">
               <InputComponent data={data} register={register} />
             </div>
           ))}
           {(isDirty && isValid) ?
             <div className="zelty-restaurant__checkout__form__confirm">
-              <Button type="submit" className="zelty-restaurant__checkout__form__confirm__button" onClick={() => {props.confirmInfors(true); Notification.notifyCheckoutInformations()}}>Confirmer Les Informations</Button>
+              <Button
+                type="submit"
+                className="zelty-restaurant__checkout__form__confirm__button"
+                onClick={() => {confirmInfors(true); Notification.notifyCheckoutInformations()}}
+              >
+                Confirm Information
+              </Button>
             </div>
           :
             <div className="zelty-restaurant__checkout__form__unconfirm">
-              <Button disabled className="zelty-restaurant__checkout__form__unconfirm__button">Confirmer Les Informations</Button>
+              <Button 
+                disabled
+                className="zelty-restaurant__checkout__form__unconfirm__button"
+              >
+                Confirm Information
+              </Button>
             </div>
           }
         </form>
