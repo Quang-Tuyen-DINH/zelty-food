@@ -66,7 +66,7 @@ export const Catalogue = () => {
     setSearching(false);
   };
 
-  const searchProduct = (event: any) => {
+  const searchProduct = (event: React.ChangeEvent<HTMLInputElement>) => {
     if(event.target.value.length > 0) {
       setSearching(true);
       setKeyword(event.target.value);

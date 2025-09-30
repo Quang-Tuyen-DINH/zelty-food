@@ -1,4 +1,5 @@
 import React from 'react'
+import { RootState } from '../../store/RootState.model';
 
 const LocalStorageService = {
   getStateFromLocal() {
@@ -13,7 +14,7 @@ const LocalStorageService = {
     }
   },
 
-  saveState(state: any) {
+  saveState(state: RootState) {
     try {
       const serializedState = JSON.stringify(state);
       localStorage.setItem('zeltyState', serializedState);

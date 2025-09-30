@@ -1,10 +1,13 @@
 import { SearchInputStyled } from "../styles/SearchInput.styled";
 
-export const SearchInput = (props: {searchProduct: any}) => {
+interface SearchInputProps {
+  searchProduct: (event: React.ChangeEvent<HTMLInputElement>) => void
+}
 
+export const SearchInput = ({ searchProduct }: SearchInputProps) => {
   return (
     <SearchInputStyled className="zelty-restaurant__search">
-      <input type="search" onClick={props.searchProduct} onChange={props.searchProduct} placeholder="Search for a product..." />
+      <input type="search" onChange={searchProduct} placeholder="Search for a product..." />
     </SearchInputStyled>
   );
 };
