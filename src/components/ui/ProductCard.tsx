@@ -35,7 +35,7 @@ const ProductCard = ({ product, options }: ProductCardProps) => {
         <img className="product-card__header__image" alt={ProductCard.name} src={product.image}/>
         <div className="product-card__header__button">
           {product.sold_out === true ?
-          <Button disabled>En rupture</Button>
+          <Button disabled>Sold out</Button>
           :
           (product.available_options ?
             (chooseOption === false ?

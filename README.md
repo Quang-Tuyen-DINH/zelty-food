@@ -74,7 +74,7 @@ root/
 From Landing Page `http://localhost:3000/`, client can access to Catalogue page `http://localhost:3000/catalogue` by clicking the `Catalogue` button in navigation bar
 
 ### Catalogue
-At the Catalogue page `http://localhost:3000/catalogue`, client will find a categorized list of products in 3 menus: Sides, Plats and Desserts. Each product card shows the food's image, name, description, price, availability and a "Select" button. In case the food has sauce, client can choose the prefered sauce by clicking the "Choose Sauce" on the card then select the sauce and confirm.
+At the Catalogue page `http://localhost:3000/catalogue`, client will find a categorized list of products in 3 menus: Sides, Main courses and Desserts. Each product card shows the food's image, name, description, price, availability and a "Select" button. In case the food has sauce, client can choose the prefered sauce by clicking the "Choose Sauce" on the card then select the sauce and confirm.
 
 On the right side, client can follow theirs selected food with the total price, also client can remove the selected product on second thought by clicking the "X" icon next to the selected food's name. Once everything is set, client can proceed order by clicking "Command" button
 

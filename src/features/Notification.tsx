@@ -1,11 +1,10 @@
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { css } from 'styled-components';
 
 const Notification = {
   notifyProduct(type: string, label: string) {
     if(type === "addProduct") {
-      toast.success(`${label} added to the cart !`, {
+      toast.success(`${label} added to the cart!`, {
         position: "top-right",
         autoClose: 3000,
         hideProgressBar: false,
@@ -17,7 +16,7 @@ const Notification = {
       });
     };
     if(type === "removeProduct") {
-      toast.warn(`${label} removed from the cart !`, {
+      toast.warn(`${label} removed from the cart!`, {
         position: "top-right",
         autoClose: 3000,
         hideProgressBar: false,
@@ -31,7 +30,7 @@ const Notification = {
   },
 
   notifyCheckoutInformations() {
-    toast.success(`Your information for the command has been registered !`, {
+    toast.success(`Your information for the command has been registered!`, {
       position: "top-right",
       autoClose: 3000,
       hideProgressBar: false,
@@ -44,7 +43,7 @@ const Notification = {
   },
 
   notifyPayment() {
-    toast.success(`Your commande has been validated !`, {
+    toast.success(`Your order has been validated!`, {
       position: "top-right",
       autoClose: 3000,
       hideProgressBar: false,
