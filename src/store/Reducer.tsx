@@ -1,4 +1,5 @@
 import { CartProduct } from "../shared/models/CartProduct.model";
+import { Action } from "./Action.model";
 import * as types from "./Constants";
 import { RootState } from "./RootState.model";
 
@@ -15,7 +16,7 @@ const initialState: RootState = {
   }
 };
 
-const Reducer = (state = initialState, action: any): RootState => {
+const Reducer = (state = initialState, action: Action): RootState => {
   switch(action.type) {
     case types.LOAD_MENU:
       return {
