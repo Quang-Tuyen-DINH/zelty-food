@@ -8,36 +8,41 @@ import { Button } from './Button';
 import { Item } from '../../shared/models/Option.model';
 import Notification from '../../features/Notification';
 
-const ProductCard = (props: {product: Product, options?: Item[]}) => {
+interface ProductCardProps {
+  product: Product;
+  options?: Item[];
+}
+
+const ProductCard = ({ product, options }: ProductCardProps) => {
   const dispatch = useDispatch();
   const [chooseOption, setChooseOption] = useState<boolean>(false);
   const [selectedOption, setSelectedOption] = useState<string>("");
 
   const addToCartWithOptions = () => {
     setChooseOption(false);
-    dispatch({ type: "ADD_PRODUCT", payload: {commandId: uuid(), productId: props.product.id, options: selectedOption, price: props.product.price} });
-    Notification.notifyProduct("addProduct", props.product.name);
+    dispatch({ type: "ADD_PRODUCT", payload: {commandId: uuid(), productId: product.id, options: selectedOption, price: product.price} });
+    Notification.notifyProduct("addProduct", product.name);
   }
 
   const addToCart = () => {
-    dispatch({ type: "ADD_PRODUCT", payload: {commandId: uuid(), productId: props.product.id, price: props.product.price} });
-    Notification.notifyProduct("addProduct", props.product.name);
+    dispatch({ type: "ADD_PRODUCT", payload: {commandId: uuid(), productId: product.id, price: product.price} });
+    Notification.notifyProduct("addProduct", product.name);
   }
 
   return (
     <ProductCardStyled className="product-card">
       <header className="product-card__header">
-        <img className="product-card__header__image" alt={ProductCard.name} src={props.product.image}/>
+        <img className="product-card__header__image" alt={ProductCard.name} src={product.image}/>
         <div className="product-card__header__button">
-          {props.product.sold_out === true ?
+          {product.sold_out === true ?
           <Button disabled>En rupture</Button>
           :
-          (props.product.available_options ?
+          (product.available_options ?
             (chooseOption === false ?
-              (props.product.available_options[0][0] === "S" ?
+              (product.available_options[0][0] === "S" ?
                 <Button onClick={() => setChooseOption(true)}>Choose the sauce</Button>
               :
-                <Button onClick={() => setChooseOption(true)}>Choisir l'accompagnement</Button>
+                <Button onClick={() => setChooseOption(true)}>Choose side dish</Button>
               )
             :
               <Button onClick={addToCartWithOptions}>Confirm</Button>
@@ -49,21 +54,21 @@ const ProductCard = (props: {product: Product, options?: Item[]}) => {
         </div>
       </header>
       <div className="product-card__content">
-        <h3 className="product-card__content__name">{props.product.name}</h3>
+        <h3 className="product-card__content__name">{product.name}</h3>
         {chooseOption === false ?
-          <span className="product-card__content__description">{props.product.description}</span>
+          <span className="product-card__content__description">{product.description}</span>
         :
           <div className="product-card__content__options">
             <div onClick={() => setChooseOption(false)} className="product-card__content__options__back">
               <i className="product-card__content__options__back__arrow"></i><p>Return</p>
             </div>
-            {(props.product.available_options && props.options) &&
-              props.product.available_options.map((option: string, index) => (
+            {(product.available_options && options) &&
+              product.available_options.map((option: string, index) => (
                 <label key={`option-${index}`} className="product-card__content__options__radio">
                   <input name="radio" type="radio" value={option} onClick={() => setSelectedOption(option)}/>
                   <span className="product-card__content__options__radio__label">
-                    {props.options && props.options.find(item => item.id === option) ?
-                      props.options.find(item => item.id === option)?.name
+                    {options && options.find(item => item.id === option) ?
+                      options.find(item => item.id === option)?.name
                     :
                       <></>}
                     </span>
@@ -74,19 +79,19 @@ const ProductCard = (props: {product: Product, options?: Item[]}) => {
         }
       </div>
       <div className="product-card__footer">
-        {props.product.sold_out ?
+        {product.sold_out ?
           <>
-            <span className="product-card__footer__price-sold-out">{(props.product.price/100).toFixed(2)} €</span>
+            <span className="product-card__footer__price-sold-out">{(product.price/100).toFixed(2)} €</span>
             <Badge warning>
               Sold out
             </Badge>
           </>
         :
-          <span className="product-card__footer__price">{(props.product.price/100).toFixed(2)}€</span>
+          <span className="product-card__footer__price">{(product.price/100).toFixed(2)}€</span>
         }
       </div>
     </ProductCardStyled>
   )
 }
 
-export default ProductCard
+export default React.memo(ProductCard);
