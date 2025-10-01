@@ -1,21 +1,19 @@
 import axios from 'axios';
 import React from 'react';
+import { menus$, options$, products$ } from './MockData';
 
 const CatalogueService = {
   async getAllProducts() {
-    const products = await axios.get(`${process.env.REACT_APP_API}/products`);
-    return products;
+    return { data: { Items: await products$ } }
   },
 
   async getAllOptions() {
-    const options = await axios.get(`${process.env.REACT_APP_API}/options`);
-    return options;
+    return { data: { Items: await options$ } }
   },
 
   async getMenu() {
-    const menu = await axios.get(`${process.env.REACT_APP_API}/menu`);
-    return menu;
+    return { data: { Items: await menus$ } }
   }
 }
 
-export default CatalogueService
+export default CatalogueService;

@@ -1,8 +1,9 @@
 import { CartProduct } from "../shared/models/CartProduct.model";
-import { Product } from "../shared/models/Product.model";
+import { Action } from "./Action.model";
 import * as types from "./Constants";
+import { RootState } from "./RootState.model";
 
-const initialState = {
+const initialState: RootState = {
   menu: [],
   products: [],
   options: [],
@@ -15,7 +16,7 @@ const initialState = {
   }
 };
 
-const Reducer = (state = initialState, action: any) => {
+const Reducer = (state = initialState, action: Action): RootState => {
   switch(action.type) {
     case types.LOAD_MENU:
       return {
@@ -42,16 +43,16 @@ const Reducer = (state = initialState, action: any) => {
         ...state,
         cartProducts: state.cartProducts.filter((product: CartProduct) => product.commandId !== action.payload)
       };
-      case types.REMOVE_ALL_PRODUCTS:
-        return {
-          ...state,
-          cartProducts: []
-        };
-      case types.SAVE_CLIENT:
-        return {
-          ...state,
-          client: action.payload
-        };
+    case types.REMOVE_ALL_PRODUCTS:
+      return {
+        ...state,
+        cartProducts: []
+      };
+    case types.SAVE_CLIENT:
+      return {
+        ...state,
+        client: action.payload
+      };
     default:
       return state;
   }

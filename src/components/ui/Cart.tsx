@@ -65,7 +65,7 @@ const Cart = (props: {atCatalogue: boolean, atCheckout: boolean, checkoutConfirm
     <CartStyled className="zelty-restaurant__cart">
       <div className="zelty-restaurant__cart__head">
         <Badge active>
-          Sur place
+          On place
         </Badge>
         <div className="zelty-restaurant__cart__head__table">
           <h3>Table</h3>
@@ -75,7 +75,7 @@ const Cart = (props: {atCatalogue: boolean, atCheckout: boolean, checkoutConfirm
       <div className="zelty-restaurant__cart__items">
         {cartProducts.length === 0 ?
           <div className="zelty-restaurant__cart__items__empty">
-            Aucun produit dans le panier 🥺
+            No product yet 🥺
           </div>
         :
           cartProducts.map((product: CartProduct, index) => (
@@ -105,16 +105,16 @@ const Cart = (props: {atCatalogue: boolean, atCheckout: boolean, checkoutConfirm
         </div>
         {cartProducts.length > 0 ?
           (props.atCatalogue ?
-            <Button onClick={navigateCheckout}>Commander</Button>
+            <Button onClick={navigateCheckout}>Command</Button>
           :
             (props.checkoutConfirmed === true ?
-              <Button onClick={payCommand}>Payer</Button>
+              <Button onClick={payCommand}>Pay</Button>
             :
-              <Button disabled>Payer</Button>
+              <Button disabled>Pay</Button>
             )
           )
         :
-          <Button disabled>Commander</Button>
+          <Button disabled>Command</Button>
         }
       </div>
     </CartStyled>
