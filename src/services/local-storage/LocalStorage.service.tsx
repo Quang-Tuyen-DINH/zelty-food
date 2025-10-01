@@ -1,4 +1,3 @@
-import React from 'react'
 import { RootState } from '../../store/RootState.model';
 
 const LocalStorageService = {
@@ -9,7 +8,8 @@ const LocalStorageService = {
         return undefined;
       }
       return JSON.parse(serializedState);
-    } catch (err) {
+    } catch (error) {
+      console.error(error);
       return undefined;
     }
   },
@@ -18,7 +18,8 @@ const LocalStorageService = {
     try {
       const serializedState = JSON.stringify(state);
       localStorage.setItem('zeltyState', serializedState);
-    } catch (err) {
+    } catch (error) {
+      console.error(error);
       return undefined;
     }
   }

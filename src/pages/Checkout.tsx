@@ -2,8 +2,9 @@ import { useState } from "react";
 import { CheckoutInput } from "../components/forms/CheckoutInput";
 import { CheckoutStyled } from "../components/styles/Checkout.styled";
 import Cart from "../components/ui/Cart";
+import React from "react";
 
-export const Checkout = () => {
+const Checkout = () => {
   const [confirmed, setConfirmed] = useState<boolean>(false);
 
   const confirmerInfors = (confirmation: boolean) => {
@@ -21,3 +22,5 @@ export const Checkout = () => {
     </CheckoutStyled>
   );
 };
+
+export default React.memo(Checkout);

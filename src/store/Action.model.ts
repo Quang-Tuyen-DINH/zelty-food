@@ -1,8 +1,8 @@
-import { Menu } from "../shared/models/Menu.model";
-import { Product } from "../shared/models/Product.model";
-import { Option } from "../shared/models/Option.model";
-import { CartProduct } from "../shared/models/CartProduct.model";
-import { ClientCheckout } from "../shared/models/ClientCheckout.model";
+import { Menu } from "../shared/models/menu.model";
+import { Product } from "../shared/models/product.model";
+import { Option } from "../shared/models/option.model";
+import { CartProduct } from "../shared/models/cartProduct.model";
+import { ClientCheckout } from "../shared/models/clientCheckout.model";
 
 export type Action =
   | { type: "LOAD_MENU"; payload: Menu[] }

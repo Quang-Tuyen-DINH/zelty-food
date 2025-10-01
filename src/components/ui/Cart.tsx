@@ -10,6 +10,7 @@ import { Badge } from "./Badge";
 import { Button } from "./Button";
 import CheckoutService from "../../services/checkout/Checkout.service";
 import Notification from '../../features/Notification';
+import React from "react";
 
 const Cart = (props: {atCatalogue: boolean, atCheckout: boolean, checkoutConfirmed: boolean}) => {
   const dispatch = useDispatch();
@@ -30,7 +31,7 @@ const Cart = (props: {atCatalogue: boolean, atCheckout: boolean, checkoutConfirm
 
   const removeProduct = (commandId: string) => {
     dispatch({ type: "REMOVE_PRODUCT", payload: commandId});
-    Notification.notifyProduct("removeProduct", "");
+    Notification.notifyProduct({ type: "removeProduct", label: "" });
   }
 
   const calculateTotal = (products: CartProduct[]) => {
@@ -46,15 +47,14 @@ const Cart = (props: {atCatalogue: boolean, atCheckout: boolean, checkoutConfirm
 
   const payCommand = async () => {
     const clientInfors = Store.getState().client;
-    await CheckoutService.payCommand(cartProducts, clientInfors)
-    .then((data) => {
+    try {
+      const data = await CheckoutService.payCommand(cartProducts, clientInfors);
       console.log(data);
       Notification.notifyPayment();
       emptyCart();
-    })
-    .catch((err) => {
-      console.log(err)
-    });
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   const emptyCart = () => {
@@ -121,4 +121,4 @@ const Cart = (props: {atCatalogue: boolean, atCheckout: boolean, checkoutConfirm
   );
 };
 
-export default Cart;
+export default React.memo(Cart);
