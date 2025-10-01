@@ -1,33 +1,22 @@
-import { useEffect, useState } from "react";
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import Notification from '../../features/Notification';
+import CheckoutService from "../../services/checkout/Checkout.service";
 import { CartProduct } from "../../shared/models/CartProduct.model";
-import { Item } from "../../shared/models/Option.model";
-import { Product } from "../../shared/models/Product.model";
 import Store from "../../store/Index";
+import { RootState } from "../../store/RootState.model";
 import { CartStyled } from "../styles/Cart.styled";
 import { Badge } from "./Badge";
 import { Button } from "./Button";
-import CheckoutService from "../../services/checkout/Checkout.service";
-import Notification from '../../features/Notification';
-import React from "react";
 
 const Cart = (props: {atCatalogue: boolean, atCheckout: boolean, checkoutConfirmed: boolean}) => {
   const dispatch = useDispatch();
-  const [products, setProducts] = useState<Product[]>([]);
-  const [options, setOptions] = useState<Item[]>([]);
-  const [cartProducts, setCartProducts] = useState<CartProduct[]>([]);
-  const [atCatalogue, setAtCatalogue] = useState<boolean>(props.atCatalogue)
   const navigate = useNavigate();
-
-  useEffect(() => {
-    setProducts(Store.getState().products);
-    setOptions(Store.getState().options);
-    setCartProducts(Store.getState().cartProducts.sort((a: CartProduct, b: CartProduct) => a.productId.localeCompare(b.productId)));
-    Store.subscribe(() => {
-      setCartProducts(Store.getState().cartProducts.sort((a: CartProduct, b: CartProduct) => a.productId.localeCompare(b.productId)));
-    })
-  }, [])
+  const products = useSelector((state: RootState) => state.products);
+  const options = useSelector((state: RootState) => state.options);
+  const cartProducts = useSelector((state: RootState) => state.cartProducts.sort((a: CartProduct, b: CartProduct) => a.productId.localeCompare(b.productId)));
+  const clientInfors = useSelector((state: RootState) => state.client);
 
   const removeProduct = (commandId: string) => {
     dispatch({ type: "REMOVE_PRODUCT", payload: commandId});
@@ -46,7 +35,6 @@ const Cart = (props: {atCatalogue: boolean, atCheckout: boolean, checkoutConfirm
   }
 
   const payCommand = async () => {
-    const clientInfors = Store.getState().client;
     try {
       const data = await CheckoutService.payCommand(cartProducts, clientInfors);
       console.log(data);
