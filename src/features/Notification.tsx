@@ -1,9 +1,14 @@
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+interface NotificationProps {
+  type: string;
+  label: string;
+}
+
 const Notification = {
-  notifyProduct(type: string, label: string) {
-    if(type === "addProduct") {
+  notifyProduct({ type, label }: NotificationProps) {
+    if (type === "addProduct") {
       toast.success(`${label} added to the cart!`, {
         position: "top-right",
         autoClose: 3000,
@@ -15,7 +20,7 @@ const Notification = {
         theme: "light"
       });
     };
-    if(type === "removeProduct") {
+    if (type === "removeProduct") {
       toast.warn(`${label} removed from the cart!`, {
         position: "top-right",
         autoClose: 3000,

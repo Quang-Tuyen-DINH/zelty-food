@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import uuid from 'react-uuid';
 import { ProductCardStyled } from '../styles/ProductCard.Styled';
-import { Product } from "../../shared/models/Product.model";
+import { Product } from "../../shared/models/product.model";
 import { Badge } from './Badge';
 import { useDispatch } from 'react-redux';
 import { Button } from './Button';
-import { Item, Option } from '../../shared/models/Option.model';
+import { Item, Option } from '../../shared/models/option.model';
 import Notification from '../../features/Notification';
 
 interface ProductCardProps {
@@ -21,12 +21,12 @@ const ProductCard = ({ product, options }: ProductCardProps) => {
   const addToCartWithOptions = () => {
     setChooseOption(false);
     dispatch({ type: "ADD_PRODUCT", payload: {commandId: uuid(), productId: product.id, options: selectedOption, price: product.price} });
-    Notification.notifyProduct("addProduct", product.name);
+    Notification.notifyProduct({ type: "addProduct", label: product.name });
   }
 
   const addToCart = () => {
     dispatch({ type: "ADD_PRODUCT", payload: {commandId: uuid(), productId: product.id, price: product.price} });
-    Notification.notifyProduct("addProduct", product.name);
+    Notification.notifyProduct({ type: "addProduct", label: product.name });
   }
 
   return (

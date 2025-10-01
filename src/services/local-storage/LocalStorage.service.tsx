@@ -1,4 +1,3 @@
-import React from 'react'
 import { RootState } from '../../store/RootState.model';
 
 const LocalStorageService = {

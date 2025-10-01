@@ -1,18 +1,16 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { MenuList } from "../components/ui/Menu";
+import { useDispatch, useSelector } from "react-redux";
 import { SearchInput } from "../components/forms/SearchInput";
 import { CatalogueStyled } from "../components/styles/Catalogue.styled";
 import Cart from "../components/ui/Cart";
-import CatalogueService from "../services/catalogue/Catalogue.service";
-import { useDispatch, useSelector } from "react-redux";
-import Store from "../store/Index";
-import { Menu } from "../shared/models/Menu.model";
-import { Product } from "../shared/models/Product.model";
-import { Item } from "../shared/models/Option.model";
+import MenuList from "../components/ui/Menu";
 import ProductCard from "../components/ui/ProductCard";
+import { Item } from "../shared/models/Option.model";
+import { Product } from "../shared/models/Product.model";
 import { RootState } from "../store/RootState.model";
+import CatalogueService from "../services/catalogue/Catalogue.service";
 
-export const Catalogue = () => {
+const Catalogue = () => {
   const dispatch = useDispatch();
   const products = useSelector((state: RootState) => state.products);
   const options = useSelector((state: RootState) => state.options);
@@ -30,7 +28,7 @@ export const Catalogue = () => {
   const getMenu = async () => {
     try {
       const data = await CatalogueService.getMenu();
-      if(!data.data.Items) {
+      if (!data.data.Items) {
           return;
         }
       dispatch({ type: "LOAD_MENU", payload: data.data.Items });
@@ -42,7 +40,7 @@ export const Catalogue = () => {
   const getAllProducts = async () => {
     try {
       const data = await CatalogueService.getAllProducts();
-      if(!data.data.Items) {
+      if (!data.data.Items) {
         return;
       }
       dispatch({ type: "LOAD_PRODUCTS", payload: data.data.Items });
@@ -54,7 +52,7 @@ export const Catalogue = () => {
   const getAllOptions = async () => {
     try {
     const data = await CatalogueService.getAllOptions();
-        if(!data.data.Items) {
+        if (!data.data.Items) {
           return;
         }
         dispatch({ type: "LOAD_OPTIONS", payload: data.data.Items });
@@ -70,7 +68,7 @@ export const Catalogue = () => {
   };
 
   const searchProduct = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if(event.target.value.length > 0) {
+    if (event.target.value.length > 0) {
       setSearching(true);
       setKeyword(event.target.value);
     } else {
@@ -110,3 +108,5 @@ const getProductOptions = (product: Product): Item[] => {
     </CatalogueStyled>
   );
 };
+
+export default React.memo(Catalogue);

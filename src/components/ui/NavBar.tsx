@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import logo from "../../assets/logo.svg"
 import { NavBarStyled } from "../styles/NavBar.styled";
 import { Link, useLocation } from "react-router-dom";
 
@@ -37,7 +36,6 @@ const NavBar = () => {
       <ul className="zelty-restaurant__nav-bar">
         <li className="zelty-restaurant__nav-bar__logo">
           <Link to="">
-            <img src={logo} alt="logo" />
           </Link>
         </li>
         {headersData.map(item => (
@@ -52,4 +50,4 @@ const NavBar = () => {
   )
 }
 
-export default NavBar;
+export default React.memo(NavBar);

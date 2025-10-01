@@ -1,14 +1,15 @@
 import { useState } from "react";
 import { Badge } from "./Badge";
 import { MenuStyled } from "../styles/Menu.syled";
-import { Menu } from "../../shared/models/Menu.model";
+import React from "react";
+import { Menu } from "../../shared/models/menu.model";
 
 interface MenuListProps {
   menu: Menu[];
   selectMenu: (menuId: string) => void;
 }
 
-export const MenuList = ({ menu, selectMenu }: MenuListProps) => {
+const MenuList = ({ menu, selectMenu }: MenuListProps) => {
   const[selectedMenu, setSelectedMenu] = useState<string>("M01");
 
   const handleSelectMenu = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -27,3 +28,5 @@ export const MenuList = ({ menu, selectMenu }: MenuListProps) => {
     </MenuStyled>
   );
 };
+
+export default React.memo(MenuList);
