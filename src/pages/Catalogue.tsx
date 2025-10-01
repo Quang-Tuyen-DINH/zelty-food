@@ -28,36 +28,39 @@ export const Catalogue = () => {
   }, []);
 
   const getMenu = async () => {
-    await CatalogueService.getMenu()
-      .then((data) => {
-        if(!data.data.Items) {
+    try {
+      const data = await CatalogueService.getMenu();
+      if(!data.data.Items) {
           return;
         }
-        dispatch({ type: "LOAD_MENU", payload: data.data.Items });
-      })
+      dispatch({ type: "LOAD_MENU", payload: data.data.Items });
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const getAllProducts = async () => {
-    await CatalogueService.getAllProducts()
-      .then((data) => {
-        if(!data.data.Items) {
-          return;
-        }
-        dispatch({ type: "LOAD_PRODUCTS", payload: data.data.Items });
-      })
-      .catch(error => {console.log(error)})
+    try {
+      const data = await CatalogueService.getAllProducts();
+      if(!data.data.Items) {
+        return;
+      }
+      dispatch({ type: "LOAD_PRODUCTS", payload: data.data.Items });
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const getAllOptions = async () => {
-    await CatalogueService.getAllOptions()
-      .then((data) => {
+    try {
+    const data = await CatalogueService.getAllOptions();
         if(!data.data.Items) {
           return;
         }
-
         dispatch({ type: "LOAD_OPTIONS", payload: data.data.Items });
-      })
-      .catch(error => {console.log(error)})
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const selectMenu = (menuId: string) => {

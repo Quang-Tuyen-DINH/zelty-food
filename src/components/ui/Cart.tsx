@@ -46,15 +46,13 @@ const Cart = (props: {atCatalogue: boolean, atCheckout: boolean, checkoutConfirm
 
   const payCommand = async () => {
     const clientInfors = Store.getState().client;
-    await CheckoutService.payCommand(cartProducts, clientInfors)
-    .then((data) => {
-      console.log(data);
+    try {
+      await CheckoutService.payCommand(cartProducts, clientInfors);
       Notification.notifyPayment();
       emptyCart();
-    })
-    .catch((err) => {
-      console.log(err)
-    });
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   const emptyCart = () => {
