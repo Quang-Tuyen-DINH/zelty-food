@@ -1,10 +1,10 @@
-import { useEffect, useState } from "react";
-import { useForm, UseFormRegister, SubmitHandler } from "react-hook-form";
-import { useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { SubmitHandler, useForm, UseFormRegister } from "react-hook-form";
+import { useDispatch, useSelector } from "react-redux";
+import Notification from "../../features/Notification";
+import { RootState } from "../../store/RootState.model";
 import { CheckoutInputStyled } from "../styles/CheckoutInput.Styled";
 import { Button } from "../ui/Button";
-import Notification from "../../features/Notification";
-import Store from "../../store/Index";
 
 interface CheckoutFormValues {
   lastName: string;
@@ -76,16 +76,12 @@ const InputComponent = ({ data, register }: InputComponentProps) => {
 
 export const CheckoutInput = ({ confirmInfors }: CheckoutInputProps) => {
   const dispatch = useDispatch();
-  const [hasProducts, setHasProducts] = useState<boolean>();
+  const hasProducts = useSelector((state: RootState) => state.cartProducts.length > 0);
   const { register, handleSubmit, setFocus, formState, reset } = useForm<CheckoutFormValues>();
   const { isDirty, isValid } = formState;
 
   useEffect(() => {
     setFocus(checkoutFormData[0].name as keyof CheckoutFormValues);
-    Store.getState().cartProducts.length > 0 ? setHasProducts(true): setHasProducts(false);
-    Store.subscribe(() => {
-      Store.getState().cartProducts.length > 0 ? setHasProducts(true): setHasProducts(false);
-    })
   }, []);
 
   const onSubmit: SubmitHandler<CheckoutFormValues> = (data) => {
