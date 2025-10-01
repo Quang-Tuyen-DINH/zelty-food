@@ -5,7 +5,7 @@ import { Product } from "../../shared/models/Product.model";
 import { Badge } from './Badge';
 import { useDispatch } from 'react-redux';
 import { Button } from './Button';
-import { Item } from '../../shared/models/Option.model';
+import { Item, Option } from '../../shared/models/Option.model';
 import Notification from '../../features/Notification';
 
 interface ProductCardProps {
@@ -39,11 +39,7 @@ const ProductCard = ({ product, options }: ProductCardProps) => {
           :
           (product.available_options ?
             (chooseOption === false ?
-              (product.available_options[0][0] === "S" ?
-                <Button onClick={() => setChooseOption(true)}>Choose the sauce</Button>
-              :
-                <Button onClick={() => setChooseOption(true)}>Choose side dish</Button>
-              )
+              <Button onClick={() => setChooseOption(true)}>Choose</Button>
             :
               <Button onClick={addToCartWithOptions}>Confirm</Button>
             )
@@ -63,14 +59,11 @@ const ProductCard = ({ product, options }: ProductCardProps) => {
               <i className="product-card__content__options__back__arrow"></i><p>Return</p>
             </div>
             {(product.available_options && options) &&
-              product.available_options.map((option: string, index) => (
+              options.map((option: Item, index) => (
                 <label key={`option-${index}`} className="product-card__content__options__radio">
-                  <input name="radio" type="radio" value={option} onClick={() => setSelectedOption(option)}/>
+                  <input name="radio" type="radio" value={option.id} onClick={() => setSelectedOption(option.id)}/>
                   <span className="product-card__content__options__radio__label">
-                    {options && options.find(item => item.id === option) ?
-                      options.find(item => item.id === option)?.name
-                    :
-                      <></>}
+                    {option.name}
                     </span>
                 </label>
               ))

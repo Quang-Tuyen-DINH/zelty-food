@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { MenuList } from "../components/ui/Menu";
 import { SearchInput } from "../components/forms/SearchInput";
 import { CatalogueStyled } from "../components/styles/Catalogue.styled";
@@ -74,6 +74,15 @@ export const Catalogue = () => {
       setSearching(false);
     }
   };
+  
+  const flatOptions = useMemo(() => {
+    return options.flatMap(opt => opt.items);
+  }, [options]);
+
+const getProductOptions = (product: Product): Item[] => {
+  if (!product.available_options) return [];
+  return flatOptions.filter(item => product.available_options?.includes(item.id));
+};
 
   const filteredProducts = searching
     ? products.filter((product: Product) =>
@@ -88,10 +97,7 @@ export const Catalogue = () => {
         <MenuList menu={menu} selectMenu={selectMenu}/>
         <div className="zelty-restaurant__catalogue__left__products">
           {filteredProducts.map((product: Product) => (
-            product.available_options ?
-              <ProductCard key={product.id} product={product} options={options}/>
-            :
-              <ProductCard key={product.id} product={product} />
+              <ProductCard key={product.id} product={product} options={getProductOptions(product)}/>
           ))}
         </div>
       </div>
