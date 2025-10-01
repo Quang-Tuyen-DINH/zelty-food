@@ -65,7 +65,7 @@ const Cart = (props: {atCatalogue: boolean, atCheckout: boolean, checkoutConfirm
     <CartStyled className="zelty-restaurant__cart">
       <div className="zelty-restaurant__cart__head">
         <Badge active>
-          On place
+          Dine-in
         </Badge>
         <div className="zelty-restaurant__cart__head__table">
           <h3>Table</h3>
@@ -105,7 +105,7 @@ const Cart = (props: {atCatalogue: boolean, atCheckout: boolean, checkoutConfirm
         </div>
         {cartProducts.length > 0 ?
           (props.atCatalogue ?
-            <Button onClick={navigateCheckout}>Command</Button>
+            <Button onClick={navigateCheckout}>Order</Button>
           :
             (props.checkoutConfirmed === true ?
               <Button onClick={payCommand}>Pay</Button>
@@ -114,7 +114,7 @@ const Cart = (props: {atCatalogue: boolean, atCheckout: boolean, checkoutConfirm
             )
           )
         :
-          <Button disabled>Command</Button>
+          <Button disabled>Order</Button>
         }
       </div>
     </CartStyled>
